@@ -1,0 +1,8 @@
+# Virtual Env
+.Python
+bin
+lib
+include
+
+.DS_Store
+
