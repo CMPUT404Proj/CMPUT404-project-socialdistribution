@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from authors.models import Author
 import uuid
 
 class Post(models.Model):
@@ -13,7 +14,7 @@ class Post(models.Model):
 	post_text = models.TextField()
 	post_title = models.CharField(max_length=64)
 	post_type = models.CharField(max_length=2, choices=POST_TYPE_CHOICES,default='PT')
-	private = models.BooleanField(initial=true)
+	private = models.BooleanField(default='True')
 
 	def __str__(self):
 		return self.post_text
