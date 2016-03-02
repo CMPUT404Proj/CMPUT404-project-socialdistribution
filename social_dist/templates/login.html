@@ -4,21 +4,44 @@
     <meta charset="utf-8"/>
     <title></title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <style type="text/css">
+    #bigHeader{
+    	background-color: #282828 ;
+    	color: white;
+    	padding: 2%;
+    }
+
+    #loginDiv{
+    	float:center;
+    	margin: 20%;
+    	margin-top: 5%;
+    	border: solid;
+    	border-color: #282828 ;
+    	border-radius:1%;
+    	border-width: 0.05%;
+    	padding: 2%;
+    	background-color: #282828 ;
+    	color: white;
+    }
+    </style>
 </head>
 <body>
+	<div id = "bigHeader">
+		<h1>Our Site</h1>
+	</div>
 	<div id ="loginDiv">
-
-			<form action="homePage" role="form">
-				<div class='form-group'>
-					<b><lable for = "urs">Name:</lable></b>
-					<input type='text' class = "form-control" id='usr'>
-				</div class='form-group'>
-					<div class='form-group'>
-					<b><lable for ='pswrd' "urs">Password:</lable></b>
-					<input type="password" class= "form-control" id ='pswrd'><br>
-				</div>
-			</form>
-
+		<h1>Login</h1>
+		<form action="homePage" role="form">
+			<div class='form-group'>
+				<b><lable for = "urs">Name:</lable></b>
+				<input type='text' class = "form-control" id='usr'>
+			</div class='form-group'>
+			<div class='form-group'>
+				<b><lable for ='pswrd' "urs">Password:</lable></b>
+				<input type="password" class= "form-control" id ='pswrd'><br>
+			</div>
+			<b><button  type="submit" class="btn btn-success btn-block">Sign in</button></b>
+		</form>
 	</div>
 </body>
 </html>
