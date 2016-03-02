@@ -11,15 +11,18 @@ from django.shortcuts import render_to_response
 
 @login_required
 def index(request):
-	# https://docs.djangoproject.com/es/1.9/topics/auth/default/
-	username = request.POST['username']
-	password = request.POST['password']
-	user = authenticate(username=username, password=password)
+	return render(request, 'authors/index.html')
 
-	if user is not None:
-		if user.is_active:
-			login(request, user)
+	# https://docs.djangoproject.com/es/1.9/topics/auth/default/
+	#username = request.POST['username']
+	#password = request.POST['password']
+	#user = authenticate(username=username, password=password)
+
+	#if user is not None:
+	#	if user.is_active:
+	#		login(request, user)
 			# redirect to the author's page....
+	#		return render(request, 'authors/index.html')
 
 	# might just create a separate login method....
 
