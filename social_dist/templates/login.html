@@ -5,6 +5,12 @@
     <title></title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <style type="text/css">
+    body{
+        background: #EFEFBB; /* fallback for old browsers */
+        background: -webkit-linear-gradient(to left, #EFEFBB , #D4D3DD); /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to left, #EFEFBB , #D4D3DD); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    }
+
     #bigHeader{
     	background-color: #282828 ;
     	color: white;
@@ -23,6 +29,9 @@
     	background-color: #282828 ;
     	color: white;
     }
+    #newusr{
+        float:center;
+    }
     </style>
 </head>
 <body>
@@ -31,7 +40,7 @@
 	</div>
 	<div id ="loginDiv">
 		<h1>Login</h1>
-		<form action="homePage" role="form">
+		<form action="homePage.html" role="form">
 			<div class='form-group'>
 				<b><lable for = "urs">Name:</lable></b>
 				<input type='text' class = "form-control" id='usr'>
@@ -40,8 +49,15 @@
 				<b><lable for ='pswrd' "urs">Password:</lable></b>
 				<input type="password" class= "form-control" id ='pswrd'><br>
 			</div>
-			<b><button  type="submit" class="btn btn-success btn-block">Sign in</button></b>
+            <div class="span7 text-center">
+                <button type="submit" class="btn btn-success" align = center>Sign in</button>
+            </div>
 		</form>
+        <br>
+        <div id="newusr" align = center>
+
+            <a href="register.html">Are you a new user?</a>
+        </div>
 	</div>
 </body>
 </html>
