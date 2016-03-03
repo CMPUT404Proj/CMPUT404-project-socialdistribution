@@ -32,7 +32,9 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = (
     'authors',
+    'friends',
     'posts',
+    'stream',
     'comments',
     'django.contrib.admin',
     'django.contrib.auth',
