@@ -44,6 +44,45 @@
 
 <div class="container">
 
+  <!-- New Post -->
+  <center>
+    <button class="btn btn-primary btn-md" data-toggle="collapse" data-target="#new-post" style='margin-bottom: 4px;'>New Post</button>
+  </center>
+  <div id="new-post" class="collapse">
+    <div class="well">
+      <div class="row">
+        <div class="col-md-9">
+          <h4>Content:</h4>
+            <textarea class="form-control" rows="5" id="post"></textarea>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <h4>Who can see this post?</h4>
+            <div class="radio">
+              <label><input type="radio" name="optradio">Anyone</label>
+            </div>
+            <div class="radio">
+              <label><input type="radio" name="optradio">Only Me</label>
+            </div>
+            <div class="radio">
+              <label><input type="radio" name="optradio">Only My Friends</label>
+            </div>
+            <div class="radio">
+              <label><input type="radio" name="optradio">Only Friends of my Friends</label>
+            </div>
+            <div class="radio">
+              <label><input type="radio" name="optradio">Only Friends on my Node</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-primary btn-md" style='margin-bottom: 4px;'>Post</button>
+    </div>
+  </div>
+  
+  
+  <!-- End New Post -->
+
   <!-- Stream -->
   <div class="panel-group">
     <!-- Post -->
