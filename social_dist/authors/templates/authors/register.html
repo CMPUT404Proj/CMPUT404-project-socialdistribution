@@ -9,12 +9,12 @@
         <h1>Register with Us</h1>
 
         {% if registered %}
-        social_dist says: <strong>thank you for registering!</strong>
-        <a href="/social_dist/">Return to the homepage.</a><br />
+        <strong>Thank you for registering!</strong>
+        <a href="/authors/">Return to the homepage.</a><br />
         {% else %}
-        social_dist says: <strong>register here!</strong><br />
+        <strong>Register here!</strong><br />
 
-        <form id="user_form" method="post" action="/social_dist/register/"
+        <form id="user_form" method="post" action="/register/"
                 enctype="multipart/form-data">
 
             {% csrf_token %}

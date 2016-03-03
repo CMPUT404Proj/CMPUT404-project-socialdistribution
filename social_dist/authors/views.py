@@ -9,7 +9,7 @@ from django.shortcuts import render_to_response
 
 #main source: http://www.tangowithdjango.com/book/chapters/login.html
 
-@login_required
+
 def index(request):
 	return render(request, 'authors/index.html')
 
@@ -55,9 +55,7 @@ def register(request):
 		user_form = UserForm()
 		profile_form = AuthorProfileForm()
 
-	# TODO: Need to find a way for settings to find this template, otherwise it's throwing:
-	# 'TemplateDoesNotExist at /register/' 
 	return render_to_response(
-		'templates/register.html',
+		'authors/register.html',
 		{'user_form': user_form, 'profile_form': profile_form, 'registered': registered},
 		context)
