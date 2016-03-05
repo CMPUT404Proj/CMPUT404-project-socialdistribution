@@ -40,9 +40,7 @@
 	</div>
 	<div id ="loginDiv">
 		<h1>Login</h1>
-		<form id="login_form" method="post" action="/authors/" role="form">
-            
-            {% csrf_token %}
+		<form id="login_form" method="post" action="">{% csrf_token %}
 
 			<div class='form-group'>
 				<b>Name:</b>
@@ -55,7 +53,7 @@
 			</div>
 
             <div class="span7 text-center">
-                <input type="submit" class="btn btn-success" value="Sign In" align = center></input>
+                <input type="submit" class="btn btn-success" value="Sign In" align='center'></input>
             </div>
 		</form>
         <br>

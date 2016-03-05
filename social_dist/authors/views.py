@@ -47,7 +47,7 @@ def register(request):
 		{'user_form': user_form, 'profile_form': profile_form, 'registered': registered},
 		context)
 
-def login(request):
+def user_login(request):
 	context = RequestContext(request)
 
 	if request.method == 'POST':
