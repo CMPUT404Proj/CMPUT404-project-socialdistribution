@@ -167,34 +167,38 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">New Post</h4>
+        <h3 class="modal-title">New Post</h3>
       </div>
-      <div class="modal-body">
-         <div class="form-group">
-          <h4>Content:</h4>
-          <textarea class="form-control" rows="5" id="post"></textarea>
-          <h4>Who can see this post?</h4>
-          <div class="radio">
-            <label><input type="radio" name="optradio">Anyone</label>
-          </div>
-          <div class="radio">
-            <label><input type="radio" name="optradio">Only Me</label>
-          </div>
-          <div class="radio">
-            <label><input type="radio" name="optradio">Only My Friends</label>
-          </div>
-          <div class="radio">
-            <label><input type="radio" name="optradio">Only Friends of my Friends</label>
-          </div>
-          <div class="radio">
-            <label><input type="radio" name="optradio">Only Friends on my Node</label>
+      <form id="post_form" role="form" method="post" action="/post/" enctype="multipart/form-data">
+        <div class="modal-body">
+           <div class="form-group">
+            <h4>Title:</h4>
+            <textarea class="form-control" rows="1" id="postTitle"></textarea>
+            <h4>Content:</h4>
+            <textarea class="form-control" rows="5" id="postContent"></textarea>
+            <h4>Who can see this post?</h4>
+            <div class="radio">
+              <label><input type="radio" name="optradio">Anyone</label>
+            </div>
+            <div class="radio">
+              <label><input type="radio" name="optradio">Only Me</label>
+            </div>
+            <div class="radio">
+              <label><input type="radio" name="optradio">Only My Friends</label>
+            </div>
+            <div class="radio">
+              <label><input type="radio" name="optradio">Only Friends of my Friends</label>
+            </div>
+            <div class="radio">
+              <label><input type="radio" name="optradio">Only Friends on my Node</label>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Save</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-      </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary" data-dismiss="modal">Save</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
