@@ -35,7 +35,7 @@
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li><a href="#"><span class="glyphicon glyphicon-user"></span> Settings</a></li>
-      <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+      <li><a href="/logout/"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
     </ul>
     </div>
   </div>
@@ -48,7 +48,11 @@
   <div class="row">
     <div class="col-md-12">
       <div class="jumbotron">
-        <center><h1>George Bush</h1></center>
+        {% if user.is_authenticated %}
+          <h1>Hello, {{ user.username }}!</h1>
+        {% else %}
+          <h1>Hello person who is not logged in!</h1>
+        {% endif %}
         <div class="row">
           <div class="col-md-6">
             <center>
