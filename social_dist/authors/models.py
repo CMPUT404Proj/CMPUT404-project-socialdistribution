@@ -16,7 +16,7 @@ class Author(models.Model):
 class GlobalAuthor(models.Model):
 	global_author_id = models.CharField(max_length=38, unique=True, default=uuid.uuid4)
 	global_author_name = models.CharField(max_length=50)
-	url = models.URLField(blank=True)
+	url = models.URLField(blank=True, default=settings.LOCAL_HOST)
 
 	def __str__(self):
 		return self.global_author_name
