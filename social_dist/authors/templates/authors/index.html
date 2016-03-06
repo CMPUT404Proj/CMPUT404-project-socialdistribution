@@ -169,7 +169,8 @@
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h3 class="modal-title">New Post</h3>
       </div>
-      <form id="post_form" role="form" method="post" action="/post/" enctype="multipart/form-data">
+      <form id="post_form" role="form" method="post" action="/posts/">
+        {% csrf_token %}
         <div class="modal-body">
            <div class="form-group">
             <h4>Title:</h4>
