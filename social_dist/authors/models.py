@@ -73,7 +73,7 @@ class GlobalRelation(models.Model):
 	)
 
 	local_author = models.ForeignKey(Author, related_name="local_author")
-	global_author = models.ForeignKey(Author, related_name="global_author")
+	global_author = models.ForeignKey(GlobalAuthor, related_name="global_author")
 
 	relation_status = models.CharField(max_length=9, choices=STATUS_OPTIONS, default=0)
 

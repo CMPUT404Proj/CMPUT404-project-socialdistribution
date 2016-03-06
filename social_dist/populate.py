@@ -24,18 +24,20 @@ def add_local_user(username):
 	user_test = User.objects.get_or_create(username=username, password='populate')[0]
 	user_test.save()
 
-	author_test = Author.objects.get(user=user_test)
+	author_test = Author.objects.get_or_create(user=user_test)
 
-	return author_test
+	return author_test[0]
 
 def add_global_author(username, host='notthelocalone'):
 	global_author_test = GlobalAuthor.objects.get_or_create(global_author_name=username, host=host)
+
+	return global_author_test[0]
 
 def add_local_relationship(first_author, second_author, status):
 	local_relation = LocalRelation.objects.create(author1=first_author, author2=second_author, relation_status=status)
 
 def add_global_relationship(first_author, second_author, status):
-	global_relation = globalRelation.objects.get_or_create(local_author=first_author, global_author=second_author, relation_status=status)
+	global_relation = GlobalRelation.objects.get_or_create(local_author=first_author, global_author=second_author, relation_status=status)
 
 # Source: http://www.tangowithdjango.com/book17/chapters/models.html#creating-a-population-script 2016-03-06
 if __name__ == '__main__':
