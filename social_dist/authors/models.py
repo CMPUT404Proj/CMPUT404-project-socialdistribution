@@ -14,6 +14,15 @@ class Author(models.Model):
 	def __unicode__(self): # unicode for Python 2.
 		return self.user.username
 
+	def get_absolute_image_url(self):
+		return "{0}{1}".format('/profile_images/', self.profile_pic.url)
+
+	def getFriends(self):
+		# http://stackoverflow.com/questions/431628/how-to-combine-2-or-more-querysets-in-a-django-view 2016-03-06
+		# current local author can be the first OR second.
+		localFriends = LocalRelation.objects.filter(Q(author1=self) | Q(author2=self))
+
+
 class GlobalAuthor(models.Model):
 	global_author_id = models.CharField(max_length=38, unique=True, default=uuid.uuid4)
 	global_author_name = models.CharField(max_length=50)
