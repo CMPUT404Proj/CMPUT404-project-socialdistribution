@@ -17,10 +17,35 @@ class Author(models.Model):
 	def get_absolute_image_url(self):
 		return "{0}{1}".format('/profile_images/', self.profile_pic.url)
 
-	def getFriends(self):
+	def getLocalFriends(self):
 		# http://stackoverflow.com/questions/431628/how-to-combine-2-or-more-querysets-in-a-django-view 2016-03-06
 		# current local author can be the first OR second.
-		localFriends = LocalRelation.objects.filter(Q(author1=self) | Q(author2=self))
+		localRelations = LocalRelation.objects.filter((models.Q(author1=self) | models.Q(author2=self) & models.Q(relation_status=True)))
+
+		localFriends = ()
+
+		for relation in localRelations:
+			if relation.author1 == self:
+				# add author's friend
+				localFriends.append(relation.author2)
+			elif relation.author2 == self:
+				# add author's friend
+				localFriends.append(relation.author1)
+
+		return localFriends
+
+	def getGlobalFriends(self):
+
+		globalRelations = GlobalRelation.objects.filter(models.Q(local_author=self) & models.Q(relation_status=2))
+
+		globalFriends = ()
+
+		for relation in globalRelations:
+			if relation.local_author == self:
+				# add global friend
+				globalFriends.append(relation.global_author)
+
+		return globalFriends
 
 
 class GlobalAuthor(models.Model):
