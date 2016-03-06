@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout as django_logout
 from django.contrib.auth.models import User
+from .models import Author
 from django.contrib.auth.decorators import login_required
 from authors.forms import UserForm, AuthorProfileForm
 from django.template import RequestContext
@@ -12,6 +13,17 @@ from django.shortcuts import render_to_response
 @login_required
 def index(request):
 	return render(request, 'authors/index.html')
+
+@login_required
+def view_user_profile(request):
+	# This page should have author's (user's) profile, and
+	# display the author's posts only.
+	context = dict()
+	author = Author.objects.get(user=request.user)
+	context['current_author'] = author
+	context['profile_pic'] = author.get_absolute_image_url()
+	author.save()
+	return render(request, 'authors/profile.html', context)
 
 def register(request):
 	context = RequestContext(request)

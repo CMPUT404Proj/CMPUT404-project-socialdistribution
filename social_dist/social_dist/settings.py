@@ -14,6 +14,7 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+PROJECT_DIR  = os.path.dirname(__file__)
 
 
 # Quick-start development settings - unsuitable for production
@@ -105,9 +106,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
+PROFILE_IMAGES_URL = '/profile_images/'
+PROFILE_IMAGES_ROOT = os.path.join(BASE_DIR,'profile_images')
 STATIC_PATH = os.path.abspath(os.path.join(BASE_DIR, 'static'))
+PROFILE_IMAGES_PATH = os.path.abspath(os.path.join(BASE_DIR, 'profile_images'))
 STATICFILES_DIRS = (
     STATIC_PATH,
+    PROFILE_IMAGES_PATH
 )
 
 # Default page if not logged in.

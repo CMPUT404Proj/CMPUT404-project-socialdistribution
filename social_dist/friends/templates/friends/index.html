@@ -24,18 +24,18 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span> 
       </button>
-      <a class="navbar-brand" href="/">C404 Social Distribution</a>
+      <a class="navbar-brand" href="/authors/home">C404 Social Distribution</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
     <ul class="nav navbar-nav">
       <li><a href="/authors/home"><span class="glyphicon glyphicon-home"></span> Home</a></li>
       <!-- TODO: get friend requests from model -->
       <li class="active"><a href="/friends"><span class="glyphicon glyphicon-user"></span> Friends <span class="badge">2</span></a></li>
-      <li><a href="/authors"><span class="glyphicon glyphicon-th"></span> Profile</a></li>
+      <li><a href="/authors/profile"><span class="glyphicon glyphicon-th"></span> Profile</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li><a href="#"><span class="glyphicon glyphicon-user"></span> Settings</a></li>
-      <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+      <li><a href="/logout/"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
     </ul>
     </div>
   </div>
@@ -46,12 +46,13 @@
 
   <ul class="nav nav-tabs">
     <li class="active"><a data-toggle="tab" href="#friends">Friends</a></li>
-    <li><a data-toggle="tab" href="#nodes">Nodes</a></li>
+    <li><a data-toggle="tab" href="#remotefriends">Remote Friends</a></li>
   </ul>
 
   <div class="tab-content">
     <div id="friends" class="tab-pane fade in active">
       <h3>My Friends</h3>
+      
       
       <div class="well">
         <h2>DogeNode</h2>
@@ -60,9 +61,9 @@
 
 
     </div>
-    <div id="nodes" class="tab-pane fade">
-      <h3>My Nodes</h3>
-      <p>Node content.</p>
+    <div id="remotefriends" class="tab-pane fade">
+      <h3>Remote Friends</h3>
+
     </div>
   </div>
 
