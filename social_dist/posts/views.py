@@ -4,6 +4,7 @@ from .forms import PostForm
 from .models import Author
 from django.contrib.auth import get_user_model
 from django.utils import timezone
+from django.shortcuts import redirect
 
 def index(request):
 	return HttpResponse("Hello you're at posts index")
@@ -18,6 +19,7 @@ def post_new(request):
 			post.author = Author.objects.get(user=request.user)
 			post.pub_date = timezone.now()
 			post.save()
+			return redirect('authors:home')
 	else:
 		form = PostForm()
 	return render(request, 'authors/index.html', {'form':form})
