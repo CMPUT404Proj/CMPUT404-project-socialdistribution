@@ -92,8 +92,8 @@
         <p> {{ post.post_text }}</p>
 
         <!-- Comments -->
-        <button class="btn btn-default btn-sm" data-toggle="collapse" data-target="#comment-section" style='margin-bottom: 4px;'>Comments <span class="badge">2</span></button>
-        <div id="comment-section" class="collapse">
+        <button class="btn btn-default btn-sm" data-toggle="collapse" data-target="#comment-section-{{ post.post_id }}" style='margin-bottom: 4px;'>Comments <span class="badge">2</span></button>
+        <div id="comment-section-{{ post.post_id }}" class="collapse">
           <div class="panel panel-sm panel-default">
           <div class="panel-heading clearfix">
           <span class="panel-title pull-left"><span class="glyphicon glyphicon-user"></span> Bill Clinton</span>
