@@ -12,4 +12,4 @@ class UserForm(forms.ModelForm):
 class AuthorProfileForm(forms.ModelForm):
     class Meta:
         model = Author
-        fields = ('url', 'profile_pic')
+        fields = ('profile_pic',)

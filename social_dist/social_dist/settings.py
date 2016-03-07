@@ -14,6 +14,7 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+PROJECT_DIR  = os.path.dirname(__file__)
 
 
 # Quick-start development settings - unsuitable for production
@@ -26,7 +27,7 @@ SECRET_KEY = '%rdo8!a#$s7)hg$m)r2ednw5uv%r82=!1f!3$(-x5*pp!mrh#a'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+LOCAL_HOST = "http://127.0.0.1:8000/"
 
 # Application definition
 
@@ -105,7 +106,17 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
+PROFILE_IMAGES_URL = '/profile_images/'
+PROFILE_IMAGES_ROOT = os.path.join(BASE_DIR,'profile_images')
 STATIC_PATH = os.path.abspath(os.path.join(BASE_DIR, 'static'))
+PROFILE_IMAGES_PATH = os.path.abspath(os.path.join(BASE_DIR, 'profile_images'))
 STATICFILES_DIRS = (
     STATIC_PATH,
+    PROFILE_IMAGES_PATH
 )
+
+# Default page if not logged in.
+LOGIN_URL= '/'
+
+# Telling Django about the profile object
+AUTH_PROFILE_MODULE = "authors.Author"
