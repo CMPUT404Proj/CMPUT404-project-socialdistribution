@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .forms import PostForm
 from .models import Author
+from .models import Post
 from django.contrib.auth import get_user_model
 from django.utils import timezone
 
@@ -21,3 +22,12 @@ def post_new(request):
 	else:
 		form = PostForm()
 	return render(request, 'authors/index.html', {'form':form})
+
+def show_posts(request):
+	print "gets to this point"
+	posts = Post.objects.filter(pub_date__lte=timezone.now()).order_by('pub_date')
+	#posts = Post.objects
+	print posts
+	return render(request,'authors/index.html', {'posts':posts})
+		
+
