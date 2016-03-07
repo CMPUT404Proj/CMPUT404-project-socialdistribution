@@ -21,7 +21,7 @@ def view_user_profile(request):
 	context = dict()
 	author = Author.objects.get(user=request.user)
 	context['current_author'] = author
-	context['profile_pic'] = author.get_absolute_image_url()
+	# context['profile_pic'] = author.get_absolute_image_url()
 	author.save()
 	return render(request, 'authors/profile.html', context)
 
