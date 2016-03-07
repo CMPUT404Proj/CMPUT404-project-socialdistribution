@@ -5,7 +5,7 @@ urlpatterns = [
     # Examples:
     # url(r'^$', 'social_dist.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
-    # url(r'^',include('stream.urls',namespace='stream')),
+    url(r'^',include('stream.urls',namespace='stream')),
     url(r'^authors/',include('authors.urls',namespace='authors')),
     url(r'^friends/',include('friends.urls',namespace='friends')),
     url(r'^posts/',include('posts.urls',namespace='posts')),
