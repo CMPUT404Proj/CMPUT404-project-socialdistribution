@@ -16,6 +16,4 @@ def index(request):
 	context['local_friends'] = author.getLocalFriends()
 	context['global_friends'] = author.getGlobalFriends()
 
-	author.save()
-
 	return render(request, 'friends/index.html', context)
