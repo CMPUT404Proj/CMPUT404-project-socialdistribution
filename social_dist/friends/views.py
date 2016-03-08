@@ -5,6 +5,7 @@ from authors.models import Author, GlobalAuthor
 from django.contrib.auth.decorators import login_required
 from django.template import RequestContext
 from django.shortcuts import render_to_response
+from django.template import loader
 
 @login_required
 def index(request):
@@ -24,8 +25,8 @@ def search(request):
 	if request.method == 'POST':
 		search_id = request.POST.get('search_field', None)
 		try:
-			# Get all local users.
-			users = User.objects.filter(username__icontains=search_id)
+			# Get all local users except the current user.
+			users = User.objects.filter(username__icontains=search_id).exclude(username=request.user.username)
 			local_names = []
 			for user in users:
 				local_names.append(user.username)
@@ -37,11 +38,12 @@ def search(request):
 				global_names.append(user.global_author_name)
 
 			# Return all usernames
-			usernames = dict()
-			usernames["local_names"] = local_names
-			usernames["global_names"] = global_names
+			context = dict()
+			context["query"] = search_id
+			context["local_names"] = local_names
+			context["global_names"] = global_names
+			return render(request, 'friends/search_results.html', context)
 
-			return HttpResponse(usernames)
 		except User.DoesNotExist:
 			return HttpResponse("No such user found.")
 	else:
