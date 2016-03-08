@@ -1,11 +1,12 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from .forms import PostForm
 from .models import Author
 from .models import Post
 from django.contrib.auth import get_user_model
 from django.utils import timezone
 from django.shortcuts import redirect
+from django.core.urlresolvers import reverse
 
 def index(request):
 	return HttpResponse("Hello you're at posts index")
@@ -20,14 +21,15 @@ def post_new(request):
 			post.author = Author.objects.get(user=request.user)
 			post.pub_date = timezone.now()
 			post.save()
-			return redirect('authors:home')
+			#return redirect('authors:home')
+			return HttpResponseRedirect(reverse('authors:home'))
 	else:
 		form = PostForm()
 	return render(request, 'authors/index.html', {'form':form})
 
 def show_posts(request):
 	print "gets to this point"
-	posts = Post.objects.filter(pub_date__lte=timezone.now()).order_by('pub_date')
+	posts = Post.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')
 	#posts = Post.objects
 	print posts
 	return render(request,'authors/index.html', {'posts':posts})
