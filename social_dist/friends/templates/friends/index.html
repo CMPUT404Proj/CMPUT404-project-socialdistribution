@@ -44,19 +44,27 @@
 
 <div class="container">
 
+<div class="search-content">
+  <form method="POST" action="/friends/search/">
+  {% csrf_token %}
+  Search users: <input type="text" name="search_field">
+  <button class="btn btn-primary btn-md" type="submit">Search</button>
+</form>
+</div>
+
   <ul class="nav nav-tabs">
     <li class="active"><a data-toggle="tab" href="#friends">Local Friends</a></li>
     <li><a data-toggle="tab" href="#remotefriends">Remote Friends</a></li>
   </ul>
 
-  # Source for listing friends: http://stackoverflow.com/questions/3998527/how-to-display-a-list-of-objects-containing-many-to-many-relations-in-django-tem 2016-03-06
+<!--   Source for listing friends: http://stackoverflow.com/questions/3998527/how-to-display-a-list-of-objects-containing-many-to-many-relations-in-django-tem 2016-03-06 -->
   <div class="tab-content">
     <div id="friends" class="tab-pane fade in active">
       <h3>My Friends</h3>
       
       {% for local in local_friends %}
       <div class="well">
-        <h4>{{ local }}</h4>
+        <h4 class"local_friend">{{ local }}</h4>
       </div>
       {% endfor %}
 
@@ -67,7 +75,8 @@
 
       {% for global in global_friends %}
       <div class="well">
-        <h4>{{ global }}</h4>
+        <h4 class"global_friend">{{ global }}</h4>
+        <p>Host: {{ global.host }}</p>
       </div>
       {% endfor %}
 
