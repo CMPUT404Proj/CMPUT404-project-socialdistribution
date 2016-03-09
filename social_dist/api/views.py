@@ -51,8 +51,21 @@ def authorPost(request, uuid):
 def post(request, uuid):
 	return HttpResponse("hello")
 
+#http://www.django-rest-framework.org/tutorial/1-serialization/
 def publicPosts(request):
-	return HttpResponse("hello")
+	'''List all public posts'''
+	if request.method == 'GET':
+		posts = Post.objects.filter(visibility='PUBLIC')
+
+		serializer = PostSerializer(posts, many=True)
+		return JSONResponse(serializer.data)
+	elif request.method == 'POST':
+		data = JSONParser().parse(request)
+		serializer = PostSerializer(data=data)
+		if serializer.is_valid():
+			serializer.save()
+			return JSONResponse(serializer.data, status=201)
+		return JSONResponse(serializer.erros, status=400)
 
 def comments(request, uuid):
 	return HttpResponse("hello")
