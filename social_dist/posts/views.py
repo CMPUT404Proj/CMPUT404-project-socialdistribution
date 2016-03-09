@@ -18,7 +18,7 @@ def post_new(request):
 		print(form.errors)
 		if form.is_valid():
 			post = form.save(commit=False)
-			post.author = Author.objects.get(user=request.user)
+			post.author = Author.objects.get(user=request.user.id)
 			post.published = timezone.now()
 			post.save()
 			#return redirect('authors:home')
