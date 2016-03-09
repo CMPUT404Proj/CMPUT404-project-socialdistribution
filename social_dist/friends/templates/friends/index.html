@@ -69,7 +69,8 @@
             <div class="col-md-3">
                 <div class="well">
         	    <center>
-                    <h1 class="friends"><span class="glyphicon glyphicon glyphicon-ok"></span></h1> 
+                    {% if forloop.counter|divisibleby:2 %}<h1 class="friends"><span class="glyphicon glyphicon glyphicon-ok"></span></h1> 
+                    {% else %}<h1 class="not-friends"><span class="glyphicon glyphicon glyphicon-remove"></span></h1>{% endif %}
                     <h3>{{ friend }}</h3>
                     <p>DogeNode</p>
                     </center>
