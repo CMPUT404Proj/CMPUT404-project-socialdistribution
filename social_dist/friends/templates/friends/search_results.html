@@ -1,0 +1,63 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- TODO: pull title from model -->
+  <title>Friends | C404 Social Distribution</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</head>
+<!-- TODO: get css from static file -->
+<body>
+
+<!-- Nav Bar -->
+<nav class="navbar navbar-default navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span> 
+      </button>
+      <a class="navbar-brand" href="/authors/home">C404 Social Distribution</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+    <ul class="nav navbar-nav">
+      <li><a href="/authors/home"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+      <!-- TODO: get friend requests from model -->
+      <li class="active"><a href="/friends"><span class="glyphicon glyphicon-user"></span> Friends <span class="badge">2</span></a></li>
+      <li><a href="/authors/profile"><span class="glyphicon glyphicon-th"></span> Profile</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="#"><span class="glyphicon glyphicon-user"></span> Settings</a></li>
+      <li><a href="/logout/"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+    </ul>
+    </div>
+  </div>
+</nav>
+<!-- End Nav Bar -->
+
+<div class="container">
+    <div id="search_results" class="tab-pane fade in active">
+      <h3>Search Results for '{{ query }}':</h3>
+      <br>
+      {% for local in local_names %}
+        <div class="well">
+          <h4 class"user">{{local}}</h4>
+        </div>
+      {% endfor %}
+      {% for global in global_names %}
+        <div class="well">
+          <h4 class"user">{{global}}</h4>
+        </div>
+      {% endfor %}
+    </div>
+</div>
+
+</body>
+</html>

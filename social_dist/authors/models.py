@@ -10,6 +10,7 @@ class Author(models.Model):
 	url = models.URLField(blank=True)
 	host = models.CharField(max_length=100, default=settings.LOCAL_HOST)
 	profile_pic = models.ImageField(upload_to='profile_images/', blank=True)
+	github = models.URLField(blank=True)
 
 	def __unicode__(self): # unicode for Python 2.
 		return self.user.username

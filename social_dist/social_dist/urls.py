@@ -13,4 +13,5 @@ urlpatterns = [
     url(r'^settings/', 'settings.views.index', name='settings'),
     url(r'^profile/', 'posts.views.show_posts', name='show_posts'),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^api/',include('api.urls',namespace='api')),
 ]
