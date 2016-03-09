@@ -12,7 +12,7 @@ from django.shortcuts import render_to_response
 
 @login_required
 def index(request):
-	return render(request, 'authors/index.html')
+	return render(request, 'profile.html')
 
 @login_required
 def view_user_profile(request):
