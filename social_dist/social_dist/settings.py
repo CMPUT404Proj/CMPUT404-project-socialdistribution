@@ -118,7 +118,7 @@ STATICFILES_DIRS = (
 )
 
 # Default page if not logged in.
-LOGIN_URL= '/'
+LOGIN_URL= '/login'
 
 # Telling Django about the profile object
 AUTH_PROFILE_MODULE = "authors.Author"

@@ -74,7 +74,7 @@ def user_login(request):
 				# send user back to home page -- should
 				# be changed to user's profile page but
 				# this will do for now.
-				return HttpResponseRedirect('/authors/home/')
+				return HttpResponseRedirect('/')
 			else:
 				return HttpResponse("Your Social Dist account is disabled.")
 		else:
