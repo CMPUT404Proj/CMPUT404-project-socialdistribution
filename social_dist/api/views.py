@@ -31,6 +31,8 @@ def index(request):
 			return JSONResponse(serializer.data, status=201)
 		return JSONResponse(serializer.erros, status=400)
 
+
+
 def queryFriends(request, uuid):
 	return HttpResponse("hello")
 

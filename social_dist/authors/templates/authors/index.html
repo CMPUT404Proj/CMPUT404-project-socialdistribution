@@ -89,7 +89,7 @@
       </div>
     </div>
       <div class="panel-body">
-        <p> {{ post.post_text }}</p>
+        <p> {{ post.content }}</p>
 
         <!-- Comments -->
         <button class="btn btn-default btn-sm" data-toggle="collapse" data-target="#comment-section-{{ post.post_id }}" style='margin-bottom: 4px;'>Comments <span class="badge">2</span></button>
@@ -178,31 +178,34 @@
         <div class="modal-body">
            <div class="form-group">
             <h4>Title:</h4>
-            <textarea name="post_title" class="form-control" rows="1" id="postTitle"></textarea>
+            <textarea name="title" class="form-control" rows="1" id="postTitle"></textarea>
             <h4>Content:</h4>
-            <textarea name="post_text" class="form-control" rows="5" id="postContent"></textarea>
+            <textarea name="content" class="form-control" rows="5" id="postContent"></textarea>
             <h4>Who can see this post?</h4>
             <div class="radio">
-              <label><input type="radio" name="privacy" value="PB">Anyone</label>
+              <label><input type="radio" name="visibility" value="PUBLIC">Anyone</label>
             </div>
             <div class="radio">
-              <label><input type="radio" name="privacy" value="PV">Only Me</label>
+              <label><input type="radio" name="visibility" value="PRIVATE">Only Me</label>
             </div>
             <div class="radio">
-              <label><input type="radio" name="privacy" value="PF">Only My Friends</label>
+              <label><input type="radio" name="visibility" value="FRIENDS">Only My Friends</label>
             </div>
             <div class="radio">
-              <label><input type="radio" name="privacy" value="FOAF">Only Friends of my Friends</label>
+              <label><input type="radio" name="visibility" value="FOAF">Only Friends of my Friends</label>
             </div>
             <div class="radio">
-              <label><input type="radio" name="privacy" value="HF">Only Friends on my Node</label>
+              <label><input type="radio" name="visibility" value="SERVERONLY">Only Friends on my Node</label>
+            </div>
+            <div class="radio">
+              <label><input type="radio" name="visibility" value="AUTHOR">Private to Another Author</label>
             </div>
             <h4>Post Type</h4>
             <div class="radio">
-              <label><input type="radio" name="post_type" value="PT">Plain text</label>
+              <label><input type="radio" name="contentType" value="text/plain">Plain text</label>
             </div>
             <div class="radio">
-              <label><input type="radio" name="post_type" value="MD">Markdown</label>
+              <label><input type="radio" name="contentType" value="text/x-markdown">Markdown</label>
             </div>
           </div>
         </div>
