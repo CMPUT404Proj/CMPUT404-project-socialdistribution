@@ -22,7 +22,8 @@ def post_new(request):
 			post.pub_date = timezone.now()
 			post.save()
 			#return redirect('authors:home')
-			return HttpResponseRedirect(reverse('authors:home'))
+			#return HttpResponseRedirect(reverse('authors:home'))
+			return render(request, 'authors/index.html', {'form':form})
 	else:
 		form = PostForm()
 	return render(request, 'authors/index.html', {'form':form})
