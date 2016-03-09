@@ -5,24 +5,28 @@ import uuid
 
 class Post(models.Model):
 	POST_TYPE_CHOICES = (
-		('MD', 'Markdown'),
-		('PT', 'Plain text'),
+		('text/x-markdown', 'Markdown'),
+		('text/plain', 'Plain text'),
 	)
 	PRIVACY_CHOICES = (
-		('PV', 'Private to me'),
-		('PA', 'Private to another author'),
-		('PF', 'Private to my friends'),
+		('PRIVATE', 'Private to me'),
+		('AUTHOR', 'Private to another author'),
+		('FRIENDS', 'Private to my friends'),
 		('FOAF', 'Friend of a friend'),
-		('HF', 'Private to only friends on my host'),
-		('PB', 'Public'),
+		('SERVERONLY', 'Private to only friends on my host'),
+		('PUBLIC', 'Public'),
 	)
 	author = models.ForeignKey(Author, on_delete=models.CASCADE)
 	post_id = models.CharField(max_length=38, unique=True, default=uuid.uuid4)
-	pub_date = models.DateTimeField('date published')
-	post_text = models.TextField()
-	post_title = models.CharField(max_length=64)
-	post_type = models.CharField(max_length=2, choices=POST_TYPE_CHOICES,default='PT')
-	privacy = models.CharField(max_length=4, choices=PRIVACY_CHOICES,default='PB')
+	published = models.DateTimeField('date published')
+	content = models.TextField()
+	title = models.CharField(max_length=64)
+	contentType = models.CharField(max_length=20, choices=POST_TYPE_CHOICES,default='text/plain')
+	visibility = models.CharField(max_length=10, choices=PRIVACY_CHOICES,default='PUBLIC')
+	source = models.URLField(blank=True)
+	origin = models.URLField(blank=True)
+	description = models.CharField(max_length=140, blank=True)
+
 
 	def __str__(self):
-		return self.post_text
+		return self.content

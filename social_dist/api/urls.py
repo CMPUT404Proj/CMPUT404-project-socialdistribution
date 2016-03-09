@@ -3,6 +3,7 @@ from . import views
 #[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12} taken from http://stackoverflow.com/questions/136505/searching-for-uuids-in-text-with-regex
 urlpatterns = [
 	url(r'^$', views.index, name='test'),
+
 	url(r'^friends/(?P<uuid>[0-9a-z-]+)', views.queryFriends, name='queryFriends'),
 	url(r'^friends/(?P<uuid1>[0-9a-z-]+)/(?P<uuid2>[0-9a-z-]+)', views.queryFriend2Friend, name='queryFriend2Friend'),
 	url(r'^author/posts', views.getPosts, name='getPosts'),

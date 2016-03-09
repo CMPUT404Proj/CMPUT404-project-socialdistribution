@@ -5,4 +5,4 @@ from .models import Post
 class PostForm(forms.ModelForm):
 	class Meta:
 		model = Post
-		fields = ('post_text', 'post_title', 'post_type', 'privacy',)
+		fields = ('content', 'title', 'contentType', 'visibility',)

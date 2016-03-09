@@ -36,6 +36,7 @@ INSTALLED_APPS = (
     'friends',
     'posts',
     'stream',
+    'settings',
     'comments',
     'api',
     'django.contrib.admin',

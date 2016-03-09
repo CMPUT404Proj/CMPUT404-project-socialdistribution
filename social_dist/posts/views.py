@@ -19,17 +19,18 @@ def post_new(request):
 		if form.is_valid():
 			post = form.save(commit=False)
 			post.author = Author.objects.get(user=request.user)
-			post.pub_date = timezone.now()
+			post.published = timezone.now()
 			post.save()
 			#return redirect('authors:home')
-			return HttpResponseRedirect(reverse('authors:home'))
+			#return HttpResponseRedirect(reverse('authors:home'))
+			return render(request, 'authors/index.html', {'form':form})
 	else:
 		form = PostForm()
 	return render(request, 'authors/index.html', {'form':form})
 
 def show_posts(request):
 	print "gets to this point"
-	posts = Post.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')
+	posts = Post.objects.filter(published__lte=timezone.now()).order_by('-published')
 	#posts = Post.objects
 	print posts
 	return render(request,'authors/index.html', {'posts':posts})
