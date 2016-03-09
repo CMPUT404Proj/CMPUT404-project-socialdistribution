@@ -37,6 +37,7 @@ INSTALLED_APPS = (
     'posts',
     'stream',
     'comments',
+    'api',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

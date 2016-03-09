@@ -13,4 +13,5 @@ urlpatterns = [
     url(r'^posts/',include('posts.urls',namespace='posts')),
     url(r'^author/posts/', 'posts.views.show_posts', name='show_posts'),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^api/',include('api.urls',namespace='api')),
 ]
