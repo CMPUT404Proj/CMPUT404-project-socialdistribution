@@ -5,6 +5,7 @@ from posts.serializers import PostSerializer
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
+from django.http import JsonResponse
 
 #http://www.django-rest-framework.org/tutorial/1-serialization/
 class JSONResponse(HttpResponse):
@@ -22,7 +23,7 @@ def index(request):
 	if request.method == 'GET':
 		posts = Post.objects.all()
 		serializer = PostSerializer(posts, many=True)
-		return JSONResponse(serializer.data)
+		return JSONResponse({"query": "posts", "count": len(posts), "size": 50, "next": "", "previous": "", "posts": serializer.data})
 	elif request.method == 'POST':
 		data = JSONParser().parse(request)
 		serializer = PostSerializer(data=data)
@@ -52,13 +53,14 @@ def post(request, uuid):
 	return HttpResponse("hello")
 
 #http://www.django-rest-framework.org/tutorial/1-serialization/
+#TODO: size needs to be set, also paging
+#TODO: POST should insert post?
 def publicPosts(request):
 	'''List all public posts'''
 	if request.method == 'GET':
-		posts = Post.objects.filter(visibility='PUBLIC')
-
+		posts = Post.objects.all()
 		serializer = PostSerializer(posts, many=True)
-		return JSONResponse(serializer.data)
+		return JSONResponse({"query": "posts", "count": len(posts), "size": 50, "next": "", "previous": "", "posts": serializer.data})
 	elif request.method == 'POST':
 		data = JSONParser().parse(request)
 		serializer = PostSerializer(data=data)
