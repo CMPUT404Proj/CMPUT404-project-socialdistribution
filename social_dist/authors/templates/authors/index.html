@@ -49,7 +49,7 @@
     <div class="col-md-12">
       <div class="jumbotron">
         {% if user.is_authenticated %}
-          <h1>Hello, {{ user.username|title }}!</h1>
+          <center><h1>Hello, {{ user.username|title }}!</h1></center>
         {% else %}
           <h1>Hello person who is not logged in!</h1>
         {% endif %}
