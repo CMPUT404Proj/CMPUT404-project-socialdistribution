@@ -54,50 +54,49 @@
 </form>
 </div>
 
-  <ul class="nav nav-tabs">
-    <li class="active"><a data-toggle="tab" href="#friends">Local Friends</a></li>
-    <li><a data-toggle="tab" href="#remotefriends">Remote Friends</a></li>
-  </ul>
+<!--   Source for listing friends: http://stackoverflow.com/questions/3998527/how-to-display-a-list-of-objects-containing-many-to-many-relations-in-django-tem 2016-03-06 
 
-<!--   Source for listing friends: http://stackoverflow.com/questions/3998527/how-to-display-a-list-of-objects-containing-many-to-many-relations-in-django-tem 2016-03-06 -->
-  <div class="tab-content">
-    <div id="friends" class="tab-pane fade in active">
-      <h3>My Friends</h3>
-      
-      {% for friend in local_friends %}
-        {% if forloop.first %}<div class="row">{% endif %}
-            <div class="col-md-3">
-              <div class="well">
-                <center>
-                  {% if forloop.counter|divisibleby:2 %}
-                    <h1 class="friends"><span class="glyphicon glyphicon glyphicon-ok"></span></h1> 
-                  {% else %}
-                    <h1 class="not-friends"><span class="glyphicon glyphicon glyphicon-remove"></span></h1>{% endif %}
-                    <h3>{{ friend }}</h3>
-                </center>
-                <div class="btn-group-vertical btn-block">
-                    <button type="button" class="btn btn-default">Profile</button>
-                    <button type="button" class="btn btn-default">Follow</button>
-                </div>
-                
+TODO: Need to figure out how to tell if a friend is already being followed or not.-->
+<div id="friends_list">
+    <h3>My Friends</h3>
+    {% for friend in local_friends %}
+      {% if forloop.first %}<div class="row">{% endif %}
+          <div class="col-md-3">
+            <div class="well">
+              <center>
+                  <h1 class="friends"><span class="glyphicon glyphicon glyphicon-ok"></span></h1> 
+                  <h3>{{ friend }}</h3>
+              </center>
+              <div class="btn-group-vertical btn-block">
+                  <button type="button" class="btn btn-default">Profile</button>
+                  <button type="button" class="btn btn-default">Follow</button>
               </div>
+              
             </div>
-            {% if forloop.counter|divisibleby:4 %}</div><div class="row">{% endif %}
-            {% if forloop.last %}</div>{% endif %}
-      {% endfor %}
-                    
-    </div>
-    <div id="remotefriends" class="tab-pane fade">
-      <h3>Remote Friends</h3>
-	  We don't need this, will be removed...' 
-      {% for global in global_friends %}
-      <div class="well">
-        <h4 class"global_friend">{{ global }}</h4>
-        <p>Host: {{ global.host }}</p>
-      </div>
-      {% endfor %}
+          </div>
+          {% if forloop.counter|divisibleby:4 %}</div><div class="row">{% endif %}
+          {% if forloop.last %}</div>{% endif %}
+    {% endfor %}
 
-    </div>
+    {% for global in global_friends %}
+      {% if forloop.first %}<div class="row">{% endif %}
+          <div class="col-md-3">
+            <div class="well">
+              <center>
+                  <h1 class="friends"><span class="glyphicon glyphicon glyphicon-ok"></span></h1> 
+                  <h3>{{ global }}</h3>
+              </center>
+              <div class="btn-group-vertical btn-block">
+                  <button type="button" class="btn btn-default">Profile</button>
+                  <button type="button" class="btn btn-default">Follow</button>
+              </div>
+              
+            </div>
+          </div>
+          {% if forloop.counter|divisibleby:4 %}</div><div class="row">{% endif %}
+          {% if forloop.last %}</div>{% endif %}
+    {% endfor %}      
+                  
   </div>
 
 </div>
