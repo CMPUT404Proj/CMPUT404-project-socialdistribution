@@ -33,8 +33,20 @@ def post_new(request):
 def show_posts(request):
 	print "gets to this point"
 	posts = Post.objects.filter(published__lte=timezone.now()).order_by('-published')
-	#posts = Post.objects
 	print posts
 	return render(request,'authors/index.html', {'posts':posts})
+
+@login_required
+def delete_post(request):
+	if request.method == "POST":
+		print("id: %s"%request.POST.get("post_id"))
+		post = Post.objects.get(post_id=request.POST.get("post_id"))
+		print post
+		if post != None:
+			post.delete()
+			return HttpResponseRedirect('/profile')
+		else:
+			#TODO: this should return 404
+			return HttpResponseRedirect('/profile')
 		
 
