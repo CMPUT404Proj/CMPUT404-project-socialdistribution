@@ -23,9 +23,9 @@ def post_new(request):
 			post.author = Author.objects.get(user=request.user.id)
 			post.published = timezone.now()
 			post.save()
-			#return redirect('authors:home')
-			#return HttpResponseRedirect(reverse('authors:home'))
-			return render(request, 'authors/index.html', {'form':form})
+			#return redirect('show_posts')
+			return HttpResponseRedirect('/profile')
+			#return render(request, 'authors/index.html', {'form':form})
 	else:
 		form = PostForm()
 	return render(request, 'authors/index.html', {'form':form})
