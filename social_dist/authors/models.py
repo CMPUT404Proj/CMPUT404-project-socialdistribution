@@ -21,18 +21,17 @@ class Author(models.Model):
 	def getLocalFriends(self):
 		# http://stackoverflow.com/questions/431628/how-to-combine-2-or-more-querysets-in-a-django-view 2016-03-06
 		# current local author can be the first OR second.
-		#localRelations = LocalRelation.objects.filter((models.Q(author1=self) | models.Q(author2=self) & models.Q(relation_status=True)))
+		localRelations = LocalRelation.objects.filter((models.Q(author1=self) | models.Q(author2=self) & models.Q(relation_status=True)))
 		
-		localFriends = ['Jimmy Carter', 'Bernie Sanders', 'Donald Trump', 'George Bush', 'Mit Romney', 'Hilary Clinton', 'John F. Kennedy', 'Ronald Regan', 'Richard Nixon']
-        
-		#for relation in localRelations:
-        #    print 'Hello'
-        #	if relation.author1 == self:
-		#		# add author's friend
-		#		localFriends.append(relation.author2)
-		#	elif relation.author2 == self:
-		#		# add author's friend
-		#		localFriends.append(relation.author1)
+		localFriends = []
+
+		for relation in localRelations:
+			if relation.author1 == self:
+				# add author's friend
+				localFriends.append(relation.author2)
+			elif relation.author2 == self:
+				# add author's friend
+				localFriends.append(relation.author1)
 
 		return localFriends
 
@@ -63,7 +62,7 @@ class LocalRelation(models.Model):
 	author1 = models.ForeignKey(Author, related_name="author1")
 	author2 = models.ForeignKey(Author, related_name="author2")
 
-	# False = not friends; True = mutual friends
+	# False = author1 follows author2; True = mutual friends
 	relation_status = models.BooleanField(default=False)
 
 class GlobalRelation(models.Model):

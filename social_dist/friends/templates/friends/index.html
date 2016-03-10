@@ -67,20 +67,20 @@
       {% for friend in local_friends %}
         {% if forloop.first %}<div class="row">{% endif %}
             <div class="col-md-3">
-                <div class="well">
-        	    <center>
-                    {% if forloop.counter|divisibleby:2 %}<h1 class="friends"><span class="glyphicon glyphicon glyphicon-ok"></span></h1> 
-                    {% else %}<h1 class="not-friends"><span class="glyphicon glyphicon glyphicon-remove"></span></h1>{% endif %}
+              <div class="well">
+                <center>
+                  {% if forloop.counter|divisibleby:2 %}
+                    <h1 class="friends"><span class="glyphicon glyphicon glyphicon-ok"></span></h1> 
+                  {% else %}
+                    <h1 class="not-friends"><span class="glyphicon glyphicon glyphicon-remove"></span></h1>{% endif %}
                     <h3>{{ friend }}</h3>
-                    <p>DogeNode</p>
-                    </center>
-                  <div class="btn-group-vertical btn-block">
-                      <button type="button" class="btn btn-default">Profile</button>
-                      <button type="button" class="btn btn-default">Add Friend</button>
-                      <button type="button" class="btn btn-default">Follow</button>
-                    </div>
+                </center>
+                <div class="btn-group-vertical btn-block">
+                    <button type="button" class="btn btn-default">Profile</button>
+                    <button type="button" class="btn btn-default">Follow</button>
+                </div>
                 
-            </div>
+              </div>
             </div>
             {% if forloop.counter|divisibleby:4 %}</div><div class="row">{% endif %}
             {% if forloop.last %}</div>{% endif %}
