@@ -94,28 +94,21 @@
         <!-- Comments -->
         <button class="btn btn-default btn-sm" data-toggle="collapse" data-target="#comment-section-{{ post.post_id }}" style='margin-bottom: 4px;'>Comments <span class="badge">2</span></button>
         <div id="comment-section-{{ post.post_id }}" class="collapse">
+	{% for comment in comments %}
+	{% if comment.post.post_id == post.post_id %}
           <div class="panel panel-sm panel-default">
           <div class="panel-heading clearfix">
-          <span class="panel-title pull-left"><span class="glyphicon glyphicon-user"></span> Bill Clinton</span>
+          <span class="panel-title pull-left"><span class="glyphicon glyphicon-user"></span> {{ comment.author }}</span>
           <div class="pull-right">
-            <p>11:30PM Feb 29, 2016</p>
+            <p>{{ comment.pub_date }}</p>
           </div>
           </div>
             <div class="panel-body">
-              <p>Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
+              <p>{{ comment.comment_text }}</p>
             </div>
           </div>
-          <div class="panel panel-sm panel-default">
-            <div class="panel-heading clearfix">
-            <span class="panel-title pull-left"><span class="glyphicon glyphicon-user"></span> Donald Trump</span>
-            <div class="pull-right">
-              <p>11:30PM Feb 29, 2016</p>
-            </div>
-          </div>
-            <div class="panel-body">
-              <p>Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
-            </div>
-          </div>
+	{% endif %}
+	{% endfor %}
         </div>
         <!-- End Comments -->
       </div>
@@ -228,13 +221,16 @@
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title">Comment</h4>
       </div>
-      <div class="modal-body">
+      <form id="post_form" role="form" method="post" action="/comments/new/" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="modal-body">
          <div class="form-group">
-          <textarea class="form-control" rows="5" id="post"></textarea>
+          <textarea name="comment_text" class="form-control" rows="5" id="post"></textarea>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Save</button>
+	<input type="hidden" name="post_id" value={{ post.post_id}} />
+        <button type="submit" class="btn btn-primary">Save</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
       </div>
     </div>

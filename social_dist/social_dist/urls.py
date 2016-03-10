@@ -15,4 +15,5 @@ urlpatterns = [
     url(r'^posts/', include('posts.urls', namespace='posts')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^api/',include('api.urls',namespace='api')),
+    url(r'^comments/', include('comments.urls', namespace='comments')),
 ]
