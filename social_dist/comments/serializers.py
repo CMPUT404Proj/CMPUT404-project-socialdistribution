@@ -1,14 +1,15 @@
 from rest_framework import serializers
 from posts.models import Post
+from comments.models import Comment
 from authors.serializers import AuthorSerializer
 
-class PostSerializer(serializers.ModelSerializer):
+class CommentSerializer(serializers.ModelSerializer):
     author = AuthorSerializer(read_only=True)
-    id = serializers.SerializerMethodField('get_post_id')
+    id = serializers.SerializerMethodField('get_comment_id')
 
-    def get_post_id(self, obj):
-        return obj.post_id
+    def get_comment_id(self, obj):
+        return obj.comment_id
 
     class Meta:
-        model = Post
-        fields = ('title', 'source', 'origin', 'description', 'contentType', 'content', 'author', 'published', 'id', 'visibility')
+        model = Comment
+        fields = ('author','comment_text','contentType','id','pub_date')
