@@ -56,20 +56,33 @@ def authorPost(request, uuid):
 
 @api_view(['GET', 'POST', 'PUT', 'DELETE'])
 def singlePost(request, uuid):
-	'''GET returns a single post'''
-	'''POST inserts a post'''
-	'''PUT insert/updates a post'''
-	'''DELETE deletes the post'''
+	'''GET returns a single post
+	POST inserts a post
+	PUT insert/updates a post
+	DELETE deletes the post'''
 	if request.method == 'GET':
-		post = Post.objects.get(post_id=uuid)
+		try:
+			post = Post.objects.get(post_id=uuid)
+		except:
+			return Response(status=status.HTTP_404_NOT_FOUND)
 		print(post)
 		serializer = PostSerializer(post)
 		return Response({"post": serializer.data})
 	elif request.method == 'POST':
-		return HttpResponse("hello")
+		form = PostForm(data=request.POST)
+		print(form.errors)
+		if form.is_valid():
+			post = form.save(commit=False)
+			post.author = Author.objects.get(user=request.user.id)
+			post.published = timezone.now()
+			post.save()
+			print(post)
+			serializer = PostSerializer(post)
+			return Response({"post": serializer.data})
+
 	elif request.method == 'PUT':
 		return HttpResponse("hello")
-	elif request.method == 'POST':
+	elif request.method == 'DELETE':
 		return HttpResponse("hello")
 	
 
@@ -82,7 +95,7 @@ def singlePost(request, uuid):
 def publicPosts(request):
 	'''List all public posts'''
 	if request.method == 'GET':
-		posts = Post.objects.all()
+		posts = Post.objects.filter(visibility='PUBLIC')
 		serializer = PostSerializer(posts, many=True)
 		return Response({"query": "posts", "count": len(posts), "size": 50, "next": "", "previous": "", "posts": serializer.data})
 	elif request.method == 'POST':

@@ -18,6 +18,7 @@ def index(request):
 def post_new(request):
 	if request.method == "POST":
 		form = PostForm(data=request.POST)
+		print(form)
 		print(form.errors)
 		if form.is_valid():
 			post = form.save(commit=False)
@@ -25,7 +26,7 @@ def post_new(request):
 			post.published = timezone.now()
 			post.save()
 			#return redirect('show_posts')
-			return HttpResponseRedirect('/profile')
+			return HttpResponseRedirect(reverse('show_posts'))
 			#return render(request, 'authors/index.html', {'form':form})
 	else:
 		form = PostForm()
@@ -41,7 +42,7 @@ def show_posts(request):
 	context['current_author'] = author
 	context['posts'] = posts
 	context['comments'] = comments
-	print posts
+	#print posts
 	return render(request,'authors/index.html', context)
 
 @login_required
@@ -52,10 +53,10 @@ def delete_post(request):
 		print post
 		if post != None:
 			post.delete()
-			return HttpResponseRedirect('/profile')
+			return HttpResponseRedirect(reverse('show_posts'))
 		else:
 			#TODO: this should return 404
-			return HttpResponseRedirect('/profile')
+			return HttpResponseRedirect(reverse('show_posts'))
 
 		
 
