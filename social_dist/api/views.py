@@ -52,8 +52,24 @@ def getProfile(request, uuid):
 def authorPost(request, uuid):
 	return HttpResponse("hello")
 
+@api_view(['GET', 'POST', 'PUT', 'DELETE'])
 def singlePost(request, uuid):
-	return HttpResponse("hello")
+	'''GET returns a single post'''
+	'''POST inserts a post'''
+	'''PUT insert/updates a post'''
+	'''DELETE deletes the post'''
+	if request.method == 'GET':
+		post = Post.objects.get(post_id=uuid)
+		print(post)
+		serializer = PostSerializer(post)
+		return Response({"post": serializer.data})
+	elif request.method == 'POST':
+		return HttpResponse("hello")
+	elif request.method == 'PUT':
+		return HttpResponse("hello")
+	elif request.method == 'POST':
+		return HttpResponse("hello")
+	
 
 #http://www.django-rest-framework.org/tutorial/1-serialization/
 #http://www.django-rest-framework.org/tutorial/2-requests-and-responses/
