@@ -15,7 +15,7 @@
 <!-- TODO: get css from static file -->
 <body>
 
-<!-- Nav Bar -->
+<!-- Nav Bar --> 
 <nav class="navbar navbar-default navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -58,6 +58,8 @@
 TODO: Need to figure out how to tell if a friend is already being followed or not.-->
 <div id="friends_list">
     <h3>My Friends</h3>
+    <br>
+    <h4>Local Friends</h4>
     {% for friend in local_friends %}
       {% if forloop.first %}<div class="row">{% endif %}
           <div class="col-md-3">
@@ -68,7 +70,10 @@ TODO: Need to figure out how to tell if a friend is already being followed or no
               </center>
               <div class="btn-group-vertical btn-block">
                   <button type="button" class="btn btn-default">Profile</button>
-                  <button type="button" class="btn btn-default">Follow</button>
+                  <form method="POST" action="/friends/delete_local/{{ friend.author_id }}/">
+                    {% csrf_token %}
+                    <input type="submit" name="delete_local" value ="Delete Friend" class="btn-group-vertical btn-block btn btn-default"></input>
+                  </form>
               </div>
             </div>
           </div>
@@ -76,6 +81,8 @@ TODO: Need to figure out how to tell if a friend is already being followed or no
           {% if forloop.last %}</div>{% endif %}
     {% endfor %}
 
+    <br>
+    <h4>Remote Friends</h4>
     {% for global in global_friends %}
       {% if forloop.first %}<div class="row">{% endif %}
           <div class="col-md-3">
@@ -86,7 +93,10 @@ TODO: Need to figure out how to tell if a friend is already being followed or no
               </center>
               <div class="btn-group-vertical btn-block">
                   <button type="button" class="btn btn-default">Profile</button>
-                  <button type="button" class="btn btn-default">Follow</button>
+                  <form method="POST" action="/friends/delete_global/{{ global.global_author_id }}/">
+                    {% csrf_token %}
+                    <input type="submit" name="delete_global" value ="Delete Friend" class="btn-group-vertical btn-block btn btn-default"></input>
+                  </form>
               </div>
               
             </div>
