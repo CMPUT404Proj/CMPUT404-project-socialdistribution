@@ -21,7 +21,7 @@ class Author(models.Model):
 	def getLocalFriends(self):
 		# http://stackoverflow.com/questions/431628/how-to-combine-2-or-more-querysets-in-a-django-view 2016-03-06
 		# current local author can be the first OR second.
-		localRelations = LocalRelation.objects.filter((models.Q(author1=self) | models.Q(author2=self) & models.Q(relation_status=True)))
+		localRelations = LocalRelation.objects.filter((models.Q(author1=self) | models.Q(author2=self)) & models.Q(relation_status=True))
 		
 		localFriends = []
 
@@ -48,6 +48,55 @@ class Author(models.Model):
 
 		return globalFriends
 
+	# Get all friend requests sent by current user (includes local and global)
+	def getAllPendingFriendRequestsSent(self):
+		
+		# per requirements: 
+		# When adding friend, automatically follow the user added. Therefore relation status should be False.
+		PendingLocalRelations = LocalRelation.objects.filter(author1=self, relation_status=False)
+
+		PendingGlobalRelations = GlobalRelation.objects.filter(local_author=self, relation_status=0)
+
+		sent_requests = []
+
+		for relation in PendingLocalRelations:
+			sent_requests.append(relation.author2)
+
+		for relation in PendingGlobalRelations:
+			sent_requests.append(relation.global_author)
+
+		return sent_requests
+
+	# Get all friend requests recieve by current user (includes local and global)
+	def getAllPendingFriendRequestsRecieved(self):
+		# author2 added/follows author1 (the current user)
+		PendingLocalRelations = LocalRelation.objects.filter(author2=self, relation_status=False)
+
+		PendingGlobalRelations = GlobalRelation.objects.filter(local_author=self, relation_status=1)
+
+		recieved_requests = []
+
+		for relation in PendingLocalRelations:
+			recieved_requests.append(relation.author1)
+
+		for relation in PendingGlobalRelations:
+			recieved_requests.append(relation.global_author)
+
+		return recieved_requests
+
+	def getFriendNames(self):
+		local_friends = self.getLocalFriends()
+		global_friends = self.getGlobalFriends()
+
+		local_usernames = []
+		for friend in local_friends:
+			local_usernames.append(friend.user.username)
+
+		global_usernames = []
+		for friend in global_friends:
+			global_usernames.append(friend.global_author_name)
+
+		return local_usernames, global_usernames
 
 class GlobalAuthor(models.Model):
 	global_author_id = models.CharField(max_length=38, unique=True, default=uuid.uuid4)
@@ -62,7 +111,7 @@ class LocalRelation(models.Model):
 	author1 = models.ForeignKey(Author, related_name="author1")
 	author2 = models.ForeignKey(Author, related_name="author2")
 
-	# False = author1 follows author2; True = mutual friends
+	# False = author1 follows author2; True = author1 follows AND IS friends with author2
 	relation_status = models.BooleanField(default=False)
 
 class GlobalRelation(models.Model):

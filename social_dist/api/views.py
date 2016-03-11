@@ -1,7 +1,9 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from posts.models import Post
+from comments.models import Comment
 from posts.serializers import PostSerializer
+from comments.serializers import CommentSerializer
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import status
 from rest_framework.decorators import api_view
@@ -23,11 +25,11 @@ class JSONResponse(HttpResponse):
 
 @api_view(['GET','POST'])
 def index(request):
-	'''List all posts'''
+	'''List all comments'''
 	if request.method == 'GET':
-		posts = Post.objects.all()
-		serializer = PostSerializer(posts, many=True)
-		return Response({"query": "posts", "count": len(posts), "size": 50, "next": "", "previous": "", "posts": serializer.data})
+		comments = Comment.objects.all()
+		serializer = CommentSerializer(comments, many=True)
+		return Response({"comments": serializer.data})
 	elif request.method == 'POST':
 		serializer = PostSerializer(data=request.data)
 		if serializer.is_valid():
@@ -52,8 +54,37 @@ def getProfile(request, uuid):
 def authorPost(request, uuid):
 	return HttpResponse("hello")
 
+@api_view(['GET', 'POST', 'PUT', 'DELETE'])
 def singlePost(request, uuid):
-	return HttpResponse("hello")
+	'''GET returns a single post
+	POST inserts a post
+	PUT insert/updates a post
+	DELETE deletes the post'''
+	if request.method == 'GET':
+		try:
+			post = Post.objects.get(post_id=uuid)
+		except:
+			return Response(status=status.HTTP_404_NOT_FOUND)
+		print(post)
+		serializer = PostSerializer(post)
+		return Response({"post": serializer.data})
+	elif request.method == 'POST':
+		form = PostForm(data=request.POST)
+		print(form.errors)
+		if form.is_valid():
+			post = form.save(commit=False)
+			post.author = Author.objects.get(user=request.user.id)
+			post.published = timezone.now()
+			post.save()
+			print(post)
+			serializer = PostSerializer(post)
+			return Response({"post": serializer.data})
+
+	elif request.method == 'PUT':
+		return HttpResponse("hello")
+	elif request.method == 'DELETE':
+		return HttpResponse("hello")
+	
 
 #http://www.django-rest-framework.org/tutorial/1-serialization/
 #http://www.django-rest-framework.org/tutorial/2-requests-and-responses/
@@ -64,7 +95,7 @@ def singlePost(request, uuid):
 def publicPosts(request):
 	'''List all public posts'''
 	if request.method == 'GET':
-		posts = Post.objects.all()
+		posts = Post.objects.filter(visibility='PUBLIC')
 		serializer = PostSerializer(posts, many=True)
 		return Response({"query": "posts", "count": len(posts), "size": 50, "next": "", "previous": "", "posts": serializer.data})
 	elif request.method == 'POST':
