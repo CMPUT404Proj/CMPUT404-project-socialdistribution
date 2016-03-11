@@ -30,19 +30,18 @@ def post_new(request):
 	else:
 		form = PostForm()
 	return render(request, 'authors/index.html', {'form':form})
-
 @login_required
 def show_posts(request):
 	print "gets to this point"
-	author = Author.objects.get(user=request.user)
 	posts = Post.objects.filter(published__lte=timezone.now()).order_by('-published')
+<<<<<<< HEAD
+	#posts = Post.objects
 	comments = Comment.objects.all()
-	context = dict()
-	context['current_author'] = author
-	context['posts'] = posts
-	context['comments'] = comments
 	print posts
-	return render(request,'authors/index.html', context)
+	return render(request,'authors/index.html', {'posts':posts, 'comments':comments})
+=======
+	print posts
+	return render(request,'authors/index.html', {'posts':posts})
 
 @login_required
 def delete_post(request):
@@ -56,6 +55,6 @@ def delete_post(request):
 		else:
 			#TODO: this should return 404
 			return HttpResponseRedirect('/profile')
-
+>>>>>>> 9f7d1619302e72db20071f3706c0fc70cdb6fc86
 		
 
