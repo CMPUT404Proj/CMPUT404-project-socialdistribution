@@ -59,10 +59,64 @@ class AuthorTestCase(TestCase):
 		GlobalRelation.objects.create(local_author=author1, global_author=globalauthor1, relation_status=0)
 
 		self.assertEqual(author1.getGlobalFriends(), [])
-		self.assertEqual(author1.getAllPendingFriendRequests(), [ globalauthor1 ])
+		#self.assertEqual(author1.getAllPendingFriendRequestsSent(), [ globalauthor1 ])
 
 		globalauthor2 = GlobalAuthor.objects.create(global_author_name='globalusr2', host='somehost')
 
 		# author1 added globalauthor2 (therefor author1 is following globalauthor2)
 		GlobalRelation.objects.create(local_author=author1, global_author=globalauthor2, relation_status=2)
 		self.assertEqual(author1.getGlobalFriends(), [ globalauthor2 ])
+
+	def testFriendRequestsSent(self):
+		localusr1 = User.objects.create(username='localusr1', password='top_secret')
+		author1 = Author.objects.create(user=localusr1)
+
+		localusr2 = User.objects.create(username='localusr2', password='top_secret')
+		author2 = Author.objects.create(user=localusr2)
+
+		localusr3 = User.objects.create(username='localusr3', password='top_secret')
+		author3 = Author.objects.create(user=localusr3)
+
+		sent_requests = author1.getAllPendingFriendRequestsSent()
+		self.assertEqual(sent_requests, [])
+
+		# author 1 send a friend request to/follows author2
+		LocalRelation.objects.create(author1=author1, author2=author2, relation_status=False)
+		self.assertEqual(author1.getAllPendingFriendRequestsSent(), [ author2 ])
+
+		# author 1 sends a friend request to/follows author3
+		LocalRelation.objects.create(author1=author1, author2=author3, relation_status=False)
+		self.assertEqual(author1.getAllPendingFriendRequestsSent(), [ author2, author3 ])
+
+		globalauthor1 = GlobalAuthor.objects.create(global_author_name='globalusr1', host='somehost')
+
+		# author1 added globalauthor2 (therefor author1 is following globalauthor2)
+		GlobalRelation.objects.create(local_author=author1, global_author=globalauthor1, relation_status=0)
+		self.assertEqual(author1.getAllPendingFriendRequestsSent(), [ author2, author3, globalauthor1 ])
+
+	def testFriendRequestsRecieved(self):
+		localusr1 = User.objects.create(username='localusr1', password='top_secret')
+		author1 = Author.objects.create(user=localusr1)
+
+		localusr2 = User.objects.create(username='localusr2', password='top_secret')
+		author2 = Author.objects.create(user=localusr2)
+
+		localusr3 = User.objects.create(username='localusr3', password='top_secret')
+		author3 = Author.objects.create(user=localusr3)
+
+		recieved_requests = author1.getAllPendingFriendRequestsRecieved()
+		self.assertEqual(recieved_requests, [])
+
+		# author 2 send a friend request to/follows author1
+		LocalRelation.objects.create(author1=author2, author2=author1, relation_status=False)
+		self.assertEqual(author1.getAllPendingFriendRequestsRecieved(), [ author2 ])
+
+		# author 2 send a friend request to/follows author1
+		LocalRelation.objects.create(author1=author3, author2=author1, relation_status=False)
+		self.assertEqual(author1.getAllPendingFriendRequestsRecieved(), [ author2, author3 ])
+
+		globalauthor1 = GlobalAuthor.objects.create(global_author_name='globalusr1', host='somehost')
+
+		# globalauthor2 added author1(therefor globalauthor2 is following author1)
+		GlobalRelation.objects.create(local_author=author1, global_author=globalauthor1, relation_status=1)
+		self.assertEqual(author1.getAllPendingFriendRequestsRecieved(), [ author2, author3, globalauthor1 ])

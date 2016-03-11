@@ -49,22 +49,41 @@ class Author(models.Model):
 		return globalFriends
 
 	# Get all friend requests sent by current user (includes local and global)
-	def getAllPendingFriendRequests(self):
+	def getAllPendingFriendRequestsSent(self):
 		
-		# per requirements: When adding friend, automatically follow the user added. Therefore relation status should be False.
+		# per requirements: 
+		# When adding friend, automatically follow the user added. Therefore relation status should be False.
 		PendingLocalRelations = LocalRelation.objects.filter(author1=self, relation_status=False)
 
 		PendingGlobalRelations = GlobalRelation.objects.filter(local_author=self, relation_status=0)
 
-		send_requests = []
+		sent_requests = []
 
 		for relation in PendingLocalRelations:
-			send_requests.append(relation.author2)
+			sent_requests.append(relation.author2)
 
 		for relation in PendingGlobalRelations:
-			send_requests.append(relation.global_author)
+			sent_requests.append(relation.global_author)
 
-		return send_requests
+		return sent_requests
+
+	# Get all friend requests recieve by current user (includes local and global)
+	def getAllPendingFriendRequestsRecieved(self):
+		# author2 added/follows author1 (the current user)
+		PendingLocalRelations = LocalRelation.objects.filter(author2=self, relation_status=False)
+
+		PendingGlobalRelations = GlobalRelation.objects.filter(local_author=self, relation_status=1)
+
+		recieved_requests = []
+
+		for relation in PendingLocalRelations:
+			recieved_requests.append(relation.author1)
+
+		for relation in PendingGlobalRelations:
+			recieved_requests.append(relation.global_author)
+
+		return recieved_requests
+
 
 class GlobalAuthor(models.Model):
 	global_author_id = models.CharField(max_length=38, unique=True, default=uuid.uuid4)
