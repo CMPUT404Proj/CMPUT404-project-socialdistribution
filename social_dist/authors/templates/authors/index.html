@@ -135,6 +135,13 @@
              <div class="form-group">
               <textarea name="comment_text" class="form-control" rows="5" id="post"></textarea>
             </div>
+            <h4>Content Type</h4>
+            <div class="radio">
+              <label><input type="radio" name="contentType" value="text/x-markdown">Markdown</label>
+            </div>
+            <div class="radio">
+              <label><input type="radio" name="contentType" value="text/plain">Text</label>
+            </div>
           </div>
           <div class="modal-footer">
            <input type="hidden" name="post_id" value={{ post.post_id}} />

@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.template import loader
+from django.http import HttpResponse, HttpResponseRedirect
 
 @login_required
 def index(request):
@@ -16,8 +17,46 @@ def index(request):
 	context['current_author'] = author
 	context['local_friends'] = author.getLocalFriends()
 	context['global_friends'] = author.getGlobalFriends()
+	context['requests_sent'] = author.getAllPendingFriendRequestsSent()
+	context['requests_recieved'] = author.getAllPendingFriendRequestsRecieved()
 
+	if request.POST.get('delete_local'):
+		print 'GOT DELETE LOCAL FRIEND REQUEST'
 	return render(request, 'friends/index.html', context)
+
+# delete local friend
+def deleteLocalFriend(request, author_id):
+	if request.POST.get('delete_local'):
+		query = Author.objects.get(author_id=author_id)
+		query.delete()
+	author = Author.objects.get(user=request.user)
+
+	context = dict()
+	context['current_author'] = author
+	context['local_friends'] = author.getLocalFriends()
+	context['global_friends'] = author.getGlobalFriends()
+	context['requests_sent'] = author.getAllPendingFriendRequestsSent()
+	context['requests_recieved'] = author.getAllPendingFriendRequestsRecieved()
+
+	return HttpResponseRedirect('/friends/', context)
+
+# delete global friend
+def deleteGlobalFriend(request, global_author_id):
+	if request.POST.get('delete_global'):
+		query = GlobalAuthor.objects.get(global_author_id=global_author_id)
+		query.delete()
+
+	author = Author.objects.get(user=request.user)
+	print author.author_id
+
+	context = dict()
+	context['current_author'] = author
+	context['local_friends'] = author.getLocalFriends()
+	context['global_friends'] = author.getGlobalFriends()
+	context['requests_sent'] = author.getAllPendingFriendRequestsSent()
+	context['requests_recieved'] = author.getAllPendingFriendRequestsRecieved()
+
+	return HttpResponseRedirect('/friends/', context)
 
 @login_required
 def search(request):
