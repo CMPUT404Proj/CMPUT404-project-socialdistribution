@@ -30,13 +30,19 @@ def post_new(request):
 	else:
 		form = PostForm()
 	return render(request, 'authors/index.html', {'form':form})
+
 @login_required
 def show_posts(request):
 	print "gets to this point"
+	author = Author.objects.get(user=request.user)
 	posts = Post.objects.filter(published__lte=timezone.now()).order_by('-published')
 	comments = Comment.objects.all()
+	context = dict()
+	context['current_author'] = author
+	context['posts'] = posts
+	context['comments'] = comments
 	print posts
-	return render(request,'authors/index.html', {'posts':posts, 'comments':comments})
+	return render(request,'authors/index.html', context)
 
 @login_required
 def delete_post(request):
