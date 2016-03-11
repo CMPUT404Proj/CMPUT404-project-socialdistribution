@@ -1,7 +1,9 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from posts.models import Post
+from comments.models import Comment
 from posts.serializers import PostSerializer
+from comments.serializers import CommentSerializer
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import status
 from rest_framework.decorators import api_view
@@ -23,11 +25,11 @@ class JSONResponse(HttpResponse):
 
 @api_view(['GET','POST'])
 def index(request):
-	'''List all posts'''
+	'''List all comments'''
 	if request.method == 'GET':
-		posts = Post.objects.all()
-		serializer = PostSerializer(posts, many=True)
-		return Response({"query": "posts", "count": len(posts), "size": 50, "next": "", "previous": "", "posts": serializer.data})
+		comments = Comment.objects.all()
+		serializer = CommentSerializer(comments, many=True)
+		return Response({"comments": serializer.data})
 	elif request.method == 'POST':
 		serializer = PostSerializer(data=request.data)
 		if serializer.is_valid():

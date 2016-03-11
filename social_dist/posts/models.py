@@ -17,7 +17,7 @@ class Post(models.Model):
 		('PUBLIC', 'Public'),
 	)
 	author = models.ForeignKey(Author, on_delete=models.CASCADE)
-	post_id = models.CharField(max_length=38, unique=True, default=uuid.uuid4)
+	post_id = models.CharField(max_length=38, unique=True, default=uuid.uuid4, primary_key=True)
 	published = models.DateTimeField('date published')
 	content = models.TextField()
 	title = models.CharField(max_length=64)
