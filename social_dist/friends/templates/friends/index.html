@@ -55,7 +55,6 @@
 </div>
 
 <!--   Source for listing friends: http://stackoverflow.com/questions/3998527/how-to-display-a-list-of-objects-containing-many-to-many-relations-in-django-tem 2016-03-06 
-
 TODO: Need to figure out how to tell if a friend is already being followed or not.-->
 <div id="friends_list">
     <h3>My Friends</h3>
@@ -71,7 +70,6 @@ TODO: Need to figure out how to tell if a friend is already being followed or no
                   <button type="button" class="btn btn-default">Profile</button>
                   <button type="button" class="btn btn-default">Follow</button>
               </div>
-              
             </div>
           </div>
           {% if forloop.counter|divisibleby:4 %}</div><div class="row">{% endif %}

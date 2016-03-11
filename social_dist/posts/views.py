@@ -24,9 +24,9 @@ def post_new(request):
 			post.author = Author.objects.get(user=request.user.id)
 			post.published = timezone.now()
 			post.save()
-			#return redirect('authors:home')
-			#return HttpResponseRedirect(reverse('authors:home'))
-			return render(request, 'authors/index.html', {'form':form})
+			#return redirect('show_posts')
+			return HttpResponseRedirect('/profile')
+			#return render(request, 'authors/index.html', {'form':form})
 	else:
 		form = PostForm()
 	return render(request, 'authors/index.html', {'form':form})
@@ -34,9 +34,22 @@ def post_new(request):
 def show_posts(request):
 	print "gets to this point"
 	posts = Post.objects.filter(published__lte=timezone.now()).order_by('-published')
-	#posts = Post.objects
 	comments = Comment.objects.all()
 	print posts
 	return render(request,'authors/index.html', {'posts':posts, 'comments':comments})
+
+@login_required
+def delete_post(request):
+	if request.method == "POST":
+		print("id: %s"%request.POST.get("post_id"))
+		post = Post.objects.get(post_id=request.POST.get("post_id"))
+		print post
+		if post != None:
+			post.delete()
+			return HttpResponseRedirect('/profile')
+		else:
+			#TODO: this should return 404
+			return HttpResponseRedirect('/profile')
+
 		
 
