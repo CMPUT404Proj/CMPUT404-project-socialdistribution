@@ -84,6 +84,19 @@ class Author(models.Model):
 
 		return recieved_requests
 
+	def getFriendNames(self):
+		local_friends = self.getLocalFriends()
+		global_friends = self.getGlobalFriends()
+
+		local_usernames = []
+		for friend in local_friends:
+			local_usernames.append(friend.user.username)
+
+		global_usernames = []
+		for friend in global_friends:
+			global_usernames.append(friend.global_author_name)
+
+		return local_usernames, global_usernames
 
 class GlobalAuthor(models.Model):
 	global_author_id = models.CharField(max_length=38, unique=True, default=uuid.uuid4)

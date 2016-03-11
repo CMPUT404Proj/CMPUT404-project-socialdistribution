@@ -51,25 +51,26 @@
     <div id="search_results" class="tab-pane fade in active">
       <h3>Search Results for '{{ query }}':</h3>
       <br>
-      {% for local in local_names %}
+      {% for local in local_authors %}
         {% if forloop.first %}<div class="row">{% endif %}
             <div class="col-md-3">
                 <div class="well">
                   <center>
-                    {% if forloop.counter|divisibleby:2 %}
+                    {% if local in local_friends %}
                       <h1 class="friends"><span class="glyphicon glyphicon glyphicon-ok"></span></h1> 
                       <h3>{{ local }}</h3>
                       <div class="btn-group-vertical btn-block">
                         <button type="button" class="btn btn-default">Profile</button>
-                        <button type="button" class="btn btn-default">Follow</button>
                       </div>
                     {% else %}
                       <h1 class="not-friends"><span class="glyphicon glyphicon glyphicon-remove"></span></h1>
                       <h3>{{ local }}</h3>
                         <div class="btn-group-vertical btn-block">
                           <button type="button" class="btn btn-default">Profile</button>
-                          <button type="button" class="btn btn-default">Add Friend</button>
-                          <button type="button" class="btn btn-default">Follow</button>
+                          <form method="POST" action="/friends/add_local/{{ local.author_id }}/">
+                            {% csrf_token %}
+                            <input type="submit" name="add_local" value ="Add Friend" class="btn-group-vertical btn-block btn btn-default"></input>
+                        </form>
                         </div>
                     {% endif %}
                   </center>
@@ -79,25 +80,26 @@
         {% if forloop.last %}</div>{% endif %}
       {% endfor %}
 
-      {% for global in global_names %}
+      {% for global in global_authors %}
         {% if forloop.first %}<div class="row">{% endif %}
             <div class="col-md-3">
                 <div class="well">
                   <center>
-                    {% if forloop.counter|divisibleby:2 %}
+                    {% if global in global_friends %}
                       <h1 class="friends"><span class="glyphicon glyphicon glyphicon-ok"></span></h1> 
                       <h3>{{ global }}</h3>
                       <div class="btn-group-vertical btn-block">
                         <button type="button" class="btn btn-default">Profile</button>
-                        <button type="button" class="btn btn-default">Follow</button>
                       </div>
                     {% else %}
                       <h1 class="not-friends"><span class="glyphicon glyphicon glyphicon-remove"></span></h1>
                       <h3>{{ global }}</h3>
                         <div class="btn-group-vertical btn-block">
                           <button type="button" class="btn btn-default">Profile</button>
-                          <button type="button" class="btn btn-default">Add Friend</button>
-                          <button type="button" class="btn btn-default">Follow</button>
+                          <form method="POST" action="/friends/add_global/{{ global.global_author_id }}/">
+                            {% csrf_token %}
+                            <input type="submit" name="add_global" value ="Add Friend" class="btn-group-vertical btn-block btn btn-default"></input>
+                        </form>
                         </div>
                     {% endif %}
                   </center>
