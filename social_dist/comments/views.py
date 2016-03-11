@@ -21,6 +21,7 @@ def comment_new(request):
     if request.method == "POST":
 	print("at comment_new")
         form = CommentForm(data=request.POST)
+	print(form.errors)
         if form.is_valid():
             comment = form.save(commit=False)
             #comment.post=post
@@ -32,7 +33,7 @@ def comment_new(request):
             comment.post = post
             comment.pub_date = timezone.now()
             comment.save()
-            return render(request, 'authors/index.html', {'form':form})
+            return redirect('/profile')
     else:
         form = CommentForm()
     return render(request, 'authors/index.html', {'form': form})
